@@ -1,39 +1,18 @@
-const miningPoolUrl = "https://your-mining-pool.com";
+let miningInterval;
 
-let isMining = false;
-let hashrate = 0;
-let estimatedEarnings = 0;
+document.getElementById('start-mining').addEventListener('click', function() {
+    document.getElementById('mining-status').children[0].innerText = 'Status: Mining';
+    let hashRate = 0;
+    miningInterval = setInterval(function() {
+        hashRate += 10; // Increase the hash rate by 10 H/s every second
+        document.getElementById('mining-status').children[1].innerText = `Hashrate: ${hashRate} H/s`;
+        document.getElementById('mining-status').children[2].innerText = `Estimated earnings: ${(hashRate / 1000000).toFixed(7)} BTC/day`; // Assuming 1M H/s = 1 BTC/day
+    }, 1000);
+});
 
-function startMining() {
-  isMining = true;
-  // Connect to the mining pool and start receiving work units
-  // ...
-}
-
-function stopMining() {
-  isMining = false;
-  // Disconnect from the mining pool
-  // ...
-}
-
-function handleWorkUnit(workUnit) {
-  // Perform the hashing calculation on the work unit
-  // ...
-  // If the calculation is successful, submit the results to the pool
-  // ...
-  // Update the user interface with the new hashrate and estimated earnings
-  // ...
-}
-
-// Update the user interface based on the current state
-function updateUI() {
-  document.getElementById("mining-status").textContent = isMining ? "Mining" : "Idle";
-  document.getElementById("hashrate").textContent = `${hashrate} H/s`;
-  document.getElementById("estimated-earnings").textContent = `${estimatedEarnings} BTC/day`;
-}
-
-// Bind event listeners to the buttons
-document.getElementById("start-mining").addEventListener("click", startMining);
-document.getElementById("stop-mining").addEventListener("click", stopMining);
-
-updateUI();
+document.getElementById('stop-mining').addEventListener('click', function() {
+    clearInterval(miningInterval);
+    document.getElementById('mining-status').children[0].innerText = 'Status: Idle';
+    document.getElementById('mining-status').children[1].innerText = 'Hashrate: 0 H/s';
+    document.getElementById('mining-status').children[2].innerText = 'Estimated earnings: 0 BTC/day';
+});
