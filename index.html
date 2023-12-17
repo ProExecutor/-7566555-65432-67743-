@@ -33,8 +33,8 @@
         const worker = new Worker("miner.js");
         worker.onmessage = (event) => {
             const data = event.data;
-            document.getElementById("hashrate").innerHTML = `Hashrate: ${data.hashrate} H/s`;
-            document.getElementById("balance").innerHTML = `Balance: ${data.balance} BTC`;
+            document.getElementById("hashrate").innerHTML = "Hashrate: " + data.hashrate + " H/s";
+            document.getElementById("balance").innerHTML = "Balance: " + data.balance + " BTC";
         };
     </script>
 </body>
