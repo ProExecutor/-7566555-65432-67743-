@@ -3,61 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Miner</title>
+    <title>Jailbroken Bitcoin Miner</title>
     <style>
         body {
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            color: #333;
+            font-family: sans-serif;
             text-align: center;
-            padding: 20px 0;
         }
-
-        #mining-status {
-            background-color: #fff;
-            border-radius: 5px;
-            max-width: 500px;
-            margin: 30px auto;
-            padding: 20px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        h1 {
+            font-size: 2em;
+            margin-top: 50px;
         }
-
-        #mining-status p {
-            font-size: 18px;
-            margin-bottom: 10px;
+        #hashrate {
+            font-size: 1.5em;
+            margin-top: 30px;
         }
-
-        button {
-            display: block;
-            width: 200px;
-            height: 40px;
-            margin: 20px auto;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #444;
+        #balance {
+            font-size: 1.5em;
+            margin-top: 30px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Bitcoin Miner</h1>
-    <div id="mining-status">
-        <p>Status: Idle</p>
-        <p>Hashrate: 0 H/s</p>
-        <p>Estimated earnings: 0 BTC/day</p>
-    </div>
-    <button id="start-mining">Start Mining</button>
-    <button id="stop-mining">Stop Mining</button>
-    <script src="script.js"></script>
+    <h1>Jailbroken Bitcoin Miner</h1>
+    <p id="hashrate">Hashrate: 0 H/s</p>
+    <p id="balance">Balance: 0 BTC</p>
+    <script>
+        // This is where the magic happens (or doesn't)
+        const worker = new Worker("miner.js");
+        worker.onmessage = (event) => {
+            const data = event.data;
+            document.getElementById("hashrate").innerHTML = `Hashrate: ${data.hashrate} H/s`;
+            document.getElementById("balance").innerHTML = `Balance: ${data.balance} BTC`;
+        };
+    </script>
 </body>
 </html>
-
